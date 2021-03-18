@@ -1,0 +1,9 @@
+--------------------------------------------------------------------------------
+                                ACKNOWLEDGEMENTS
+--------------------------------------------------------------------------------
+
+Vector35 Binary Ninja Debugger
+<https://github.com/Vector35/debugger/blob/master/dockwidgets/widget.py>
+
+Code for dock widget management was sourced and modified from here.
+
