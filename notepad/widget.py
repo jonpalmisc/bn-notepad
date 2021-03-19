@@ -6,6 +6,8 @@ from binaryninjaui import DockContextHandler
 from PySide2.QtWidgets import QWidget, QTextEdit, QVBoxLayout
 from PySide2.QtCore import QTimer
 
+from .editor import JMarkdownEditor
+
 # A "unique" metadata key is used to store the user's notes in attempt to avoid
 # collisions with other plugins using the metadata API.
 METADATA_KEY = "92f8c608-notepad-11078da3f6fd"
@@ -19,7 +21,7 @@ class NotepadDockWidget(QWidget, DockContextHandler):
     """
 
     # The actual editor widget.
-    editor: QTextEdit
+    editor: JMarkdownEditor
 
     # Timer for auto-saving.
     save_timer: QTimer
@@ -47,7 +49,7 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         self.save_timer.timeout.connect(lambda: self.store_notes())
 
         # Initialize the editor and set up the text changed callback.
-        self.editor = QTextEdit()
+        self.editor = JMarkdownEditor(self)
         self.editor.textChanged.connect(self.on_editor_text_changed)
 
         # Create a simple layout for the editor and set it as the root layout.
@@ -104,9 +106,9 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         # throw a KeyError if this is a brand new database.
         try:
             notes = self.bv.query_metadata(METADATA_KEY)
-            self.editor.setText(notes)
+            self.editor.setPlainText(notes)
         except KeyError:
-            self.editor.setText("")
+            self.editor.setPlainText("")
 
     def store_notes(self):
         """
