@@ -1,4 +1,8 @@
-from PySide2.QtCore import Qt
+try:
+    from PySide6.QtCore import Qt
+except ImportError:
+    from PySide2.QtCore import Qt
+
 
 from .notepad import docking
 from .notepad.widget import NotepadDockWidget

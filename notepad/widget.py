@@ -3,8 +3,12 @@ from typing import Optional
 from binaryninja import BinaryView
 from binaryninjaui import DockContextHandler
 
-from PySide2.QtWidgets import QWidget, QTextEdit, QVBoxLayout
-from PySide2.QtCore import QTimer
+try:
+    from PySide6.QtWidgets import QWidget, QTextEdit, QVBoxLayout
+    from PySide6.QtCore import QTimer
+except ImportError:
+    from PySide2.QtWidgets import QWidget, QTextEdit, QVBoxLayout
+    from PySide2.QtCore import QTimer
 
 from .editor import JMarkdownEditor
 

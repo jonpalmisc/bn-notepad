@@ -1,4 +1,8 @@
-from PySide2.QtWidgets import QPlainTextEdit, QWidget
+try:
+    from PySide6.QtWidgets import QPlainTextEdit, QWidget
+except ImportError:
+    from PySide2.QtWidgets import QPlainTextEdit, QWidget
+
 
 from .highlighter import JMarkdownHighlighter
 

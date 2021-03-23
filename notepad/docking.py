@@ -1,8 +1,13 @@
 import traceback
 from typing import Any
 
-from PySide2.QtWidgets import QApplication, QWidget
-from PySide2.QtCore import Qt
+try:
+    from PySide6.QtWidgets import QApplication, QWidget
+    from PySide6.QtCore import Qt
+except ImportError:
+    from PySide2.QtWidgets import QApplication, QWidget
+    from PySide2.QtCore import Qt
+
 
 from binaryninjaui import DockHandler
 

@@ -1,7 +1,11 @@
 from typing import List
 
-from PySide2.QtGui import QTextDocument, QSyntaxHighlighter, QTextCharFormat, QFont
-from PySide2.QtCore import QRegularExpression
+try:
+    from PySide6.QtGui import QTextDocument, QSyntaxHighlighter, QTextCharFormat, QFont
+    from PySide6.QtCore import QRegularExpression
+except ImportError:
+    from PySide2.QtGui import QTextDocument, QSyntaxHighlighter, QTextCharFormat, QFont
+    from PySide2.QtCore import QRegularExpression
 
 
 class JHighlightRule:
