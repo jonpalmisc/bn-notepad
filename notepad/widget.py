@@ -83,6 +83,10 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         from the new BinaryView, if there are any.
         """
 
+        # Do nothing if the new view is the old view.
+        if self.bv == new_bv:
+            return
+
         # Do nothing if we have no BinaryView, which might happen at startup?
         if self.bv is not None:
             self.store_notes()
@@ -104,15 +108,19 @@ class NotepadDockWidget(QWidget, DockContextHandler):
 
         # Do nothing if we have no BinaryView, which might happen at startup?
         if self.bv is None:
-            pass
+            return
 
         # Attempt to access the notes stored in the database metadata. Will
-        # throw a KeyError if this is a brand new database.
+        # throw a KeyError if this is a brand new database. Block signals to
+        # avoid accidentally triggering the save event.
+        self.editor.blockSignals(True)
         try:
             notes = self.bv.query_metadata(METADATA_KEY)
             self.editor.setPlainText(notes)
         except KeyError:
             self.editor.setPlainText("")
+
+        self.editor.blockSignals(False)
 
     def store_notes(self):
         """
@@ -127,6 +135,7 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         # Store the notes in the metadata of the database.
         notes = self.editor.toPlainText()
         self.bv.store_metadata(METADATA_KEY, notes)
+        self.bv.modified = True
 
     # -- Binary Ninja UI callbacks (camelCase shenanigans warning) --
 
