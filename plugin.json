@@ -13,7 +13,7 @@
     "Windows": "No additional steps necessary.",
     "Linux": "No additional steps necessary."
   },
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Jon Palmisciano",
   "minimumbinaryninjaversion": 1200
 }
