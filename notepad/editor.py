@@ -1,8 +1,8 @@
 import binaryninjaui
 
-try:
+if "qt_major_version" in dir(binaryninjaui) and binaryninjaui.qt_major_version == 6:
     from PySide6.QtWidgets import QPlainTextEdit, QWidget
-except ImportError:
+else:
     from PySide2.QtWidgets import QPlainTextEdit, QWidget
 
 

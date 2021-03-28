@@ -1,15 +1,16 @@
 import traceback
 from typing import Any
 
-try:
-    from PySide6.QtWidgets import QApplication, QWidget
+from binaryninjaui import DockHandler
+import binaryninjaui
+
+if "qt_major_version" in dir(binaryninjaui) and binaryninjaui.qt_major_version == 6:
+    from PySide6.QtWidgets import QWidget
     from PySide6.QtCore import Qt
-except ImportError:
-    from PySide2.QtWidgets import QApplication, QWidget
+else:
+    from PySide2.QtWidgets import QWidget
     from PySide2.QtCore import Qt
 
-
-from binaryninjaui import DockHandler
 
 # Keep a collection of all of our registered dock widgets.
 _dock_widgets = []

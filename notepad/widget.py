@@ -2,21 +2,22 @@ from typing import Optional
 
 from binaryninja import BinaryView
 from binaryninjaui import DockContextHandler
+import binaryninjaui
 
-try:
+if "qt_major_version" in dir(binaryninjaui) and binaryninjaui.qt_major_version == 6:
+    from PySide6.QtCore import QTimer
     from PySide6.QtWidgets import (
         QWidget,
         QTabWidget,
         QVBoxLayout,
     )
-    from PySide6.QtCore import QTimer
-except ImportError:
+else:
+    from PySide2.QtCore import QTimer
     from PySide2.QtWidgets import (
         QWidget,
         QTabWidget,
         QVBoxLayout,
     )
-    from PySide2.QtCore import QTimer
 
 from .editor import JMarkdownEditor
 from .viewer import JMarkdownViewer

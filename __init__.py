@@ -1,6 +1,8 @@
-try:
+import binaryninjaui
+
+if "qt_major_version" in dir(binaryninjaui) and binaryninjaui.qt_major_version == 6:
     from PySide6.QtCore import Qt
-except ImportError:
+else:
     from PySide2.QtCore import Qt
 
 

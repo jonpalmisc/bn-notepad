@@ -1,6 +1,8 @@
-try:
+import binaryninjaui
+
+if "qt_major_version" in dir(binaryninjaui) and binaryninjaui.qt_major_version == 6:
     from PySide6.QtWidgets import QTextBrowser, QWidget
-except ImportError:
+else:
     from PySide2.QtWidgets import QTextBrowser, QWidget
 
 from .editor import JMarkdownEditor
