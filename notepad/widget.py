@@ -7,8 +7,6 @@ try:
     from PySide6.QtWidgets import (
         QWidget,
         QTabWidget,
-        QTextBrowser,
-        QTextEdit,
         QVBoxLayout,
     )
     from PySide6.QtCore import QTimer
@@ -16,13 +14,12 @@ except ImportError:
     from PySide2.QtWidgets import (
         QWidget,
         QTabWidget,
-        QTextBrowser,
-        QTextEdit,
         QVBoxLayout,
     )
     from PySide2.QtCore import QTimer
 
 from .editor import JMarkdownEditor
+from .viewer import JMarkdownViewer
 
 # A "unique" metadata key is used to store the user's notes in attempt to avoid
 # collisions with other plugins using the metadata API.
@@ -43,7 +40,7 @@ class NotepadDockWidget(QWidget, DockContextHandler):
     editor: JMarkdownEditor
 
     # Viewer/content widget
-    viewer: QTabWidget
+    viewer: JMarkdownViewer
 
     # Timer for auto-saving.
     save_timer: QTimer
@@ -75,9 +72,7 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         self.editor.textChanged.connect(self.on_editor_text_changed)
 
         # Create the viewer
-        self.viewer = QTextBrowser()
-        self.viewer.setOpenLinks(True)
-        self.viewer.setOpenExternalLinks(True)
+        self.viewer = JMarkdownViewer(self, self.editor)
 
         # Add both widgets to a tab container
         self.tab_container = QTabWidget()
@@ -102,7 +97,6 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         """
 
         self.save_timer.start(1000)
-        self.viewer.setMarkdown(self.editor.toPlainText())
 
     def on_binary_view_changed(self, new_bv: BinaryView):
         """
