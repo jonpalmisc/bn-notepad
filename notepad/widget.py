@@ -82,6 +82,7 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         # Create a simple layout for the editor and set it as the root layout.
         layout = QVBoxLayout()
         layout.addWidget(self.tab_container)
+        layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
         # Probably does nothing since there should be no BV when the program
