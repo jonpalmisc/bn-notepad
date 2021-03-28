@@ -142,6 +142,9 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         try:
             notes = self.bv.query_metadata(METADATA_KEY)
             self.editor.setPlainText(notes)
+
+            # Manually trigger the text changed event since we disabled signals
+            self.viewer.on_editor_text_changed()
         except KeyError:
             self.editor.setPlainText("")
 
