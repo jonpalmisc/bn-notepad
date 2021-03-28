@@ -1,19 +1,16 @@
+import binaryninjaui
+
 try:
     from PySide6.QtWidgets import QPlainTextEdit, QWidget
 except ImportError:
     from PySide2.QtWidgets import QPlainTextEdit, QWidget
 
 
-from .highlighter import JMarkdownHighlighter
-
-
 class JMarkdownEditor(QPlainTextEdit):
-    """Custom editor widget which integrates Markdown highlighting."""
-
-    highlighter: JMarkdownHighlighter
+    """Custom editor widget."""
 
     def __init__(self, parent: QWidget):
         QPlainTextEdit.__init__(self, parent)
-        self.highlighter = JMarkdownHighlighter(
-            self.document(), self.fontInfo().pointSize()
-        )
+
+        # Editor should use a monospace font
+        self.setFont(binaryninjaui.getDefaultMonospaceFont())
