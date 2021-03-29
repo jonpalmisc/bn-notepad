@@ -4,6 +4,8 @@
 
 ![Preview Image](preview.png)
 
+> Screenshot taken with [Screenshot Ninja](https://github.com/jonpalmisc/screenshot_ninja).
+
 This plugin is still in the early stages, but is functional enough for an
 initial release. For a list of known bugs and planned features, see the issues
 page on GitHub.
