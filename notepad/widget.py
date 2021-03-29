@@ -5,14 +5,16 @@ from binaryninjaui import DockContextHandler
 import binaryninjaui
 
 if "qt_major_version" in dir(binaryninjaui) and binaryninjaui.qt_major_version == 6:
-    from PySide6.QtCore import QTimer
+    from PySide6.QtCore import QTimer, QUrl
+    from PySide6.QtGui import QDesktopServices
     from PySide6.QtWidgets import (
         QWidget,
         QTabWidget,
         QVBoxLayout,
     )
 else:
-    from PySide2.QtCore import QTimer
+    from PySide2.QtCore import QTimer, QUrl
+    from PySide2.QtGui import QDesktopServices
     from PySide2.QtWidgets import (
         QWidget,
         QTabWidget,
@@ -74,6 +76,7 @@ class NotepadDockWidget(QWidget, DockContextHandler):
 
         # Create the viewer
         self.viewer = JMarkdownViewer(self, self.editor)
+        self.viewer.anchorClicked.connect(self.on_viewer_anchor_clicked)
 
         # Add both widgets to a tab container
         self.tab_container = QTabWidget()
@@ -124,6 +127,18 @@ class NotepadDockWidget(QWidget, DockContextHandler):
         else:
             self.bv = new_bv
             self.query_notes()
+
+    def on_viewer_anchor_clicked(self, url: QUrl):
+        """Callback to handle clicked links in the viewer."""
+
+        # If the protocol is "addr" try to navigate to an address
+        if url.scheme() == "addr":
+            addr = int(url.path(), 0)
+            self.bv.navigate(self.bv.view, addr)
+
+        # Open web URLs
+        if url.scheme() == "http" or url.scheme() == "https":
+            QDesktopServices.openUrl(url)
 
     def query_notes(self):
         """

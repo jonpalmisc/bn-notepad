@@ -19,8 +19,8 @@ class JMarkdownViewer(QTextBrowser):
         self.editor = editor
         self.editor.textChanged.connect(self.on_editor_text_changed)
 
-        self.setOpenLinks(True)
-        self.setOpenExternalLinks(True)
+        self.setOpenLinks(False)
+        self.setOpenExternalLinks(False)
 
     def on_editor_text_changed(self):
         """Update the viewer when the content of the linked editor changes."""
